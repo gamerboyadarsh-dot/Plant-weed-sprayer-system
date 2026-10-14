@@ -342,6 +342,11 @@ def get_analytics():
         "plots": plots
     }
 
+# Serve built frontend if dist exists
+dist_dir = os.path.join(os.path.dirname(__file__), "frontend", "dist")
+if os.path.exists(dist_dir):
+    app.mount("/", StaticFiles(directory=dist_dir, html=True), name="frontend")
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("api_server:app", host="0.0.0.0", port=8000, reload=True)
