@@ -1,0 +1,21 @@
+test_name,pixel_x,pixel_y,bed_x_mm,bed_y_mm,offset_x_mm,offset_y_mm,nozzle_x_mm,nozzle_y_mm,aim_error_mm,note
+top_left,0,0,0.0,0.0,50.0,0.0,50.0,0.0,2.578,SIMULATION ASSUMPTION - coordinate model only
+top_centre,320,0,250.391,0.0,50.0,0.0,300.391,0.0,8.275,SIMULATION ASSUMPTION - coordinate model only
+top_right,639,0,500.0,0.0,50.0,0.0,550.0,0.0,1.656,SIMULATION ASSUMPTION - coordinate model only
+centre,320,240,250.391,200.418,50.0,0.0,300.391,200.418,8.779,SIMULATION ASSUMPTION - coordinate model only
+bottom_left,0,479,0.0,400.0,50.0,0.0,50.0,400.0,3.587,SIMULATION ASSUMPTION - coordinate model only
+bottom_centre,320,479,250.391,400.0,50.0,0.0,300.391,400.0,3.285,SIMULATION ASSUMPTION - coordinate model only
+bottom_right,639,479,500.0,400.0,50.0,0.0,550.0,400.0,9.643,SIMULATION ASSUMPTION - coordinate model only
+random_01,114,12,89.202,10.021,50.0,0.0,139.202,10.021,9.071,SIMULATION ASSUMPTION - coordinate model only
+random_02,281,125,219.875,104.384,50.0,0.0,269.875,104.384,5.302,SIMULATION ASSUMPTION - coordinate model only
+random_03,228,71,178.404,59.29,50.0,0.0,228.404,59.29,8.395,SIMULATION ASSUMPTION - coordinate model only
+random_04,104,346,81.377,288.935,50.0,0.0,131.377,288.935,7.415,SIMULATION ASSUMPTION - coordinate model only
+random_05,558,44,436.62,36.743,50.0,0.0,486.62,36.743,7.132,SIMULATION ASSUMPTION - coordinate model only
+random_06,604,216,472.613,180.376,50.0,0.0,522.613,180.376,2.778,SIMULATION ASSUMPTION - coordinate model only
+random_07,32,15,25.039,12.526,50.0,0.0,75.039,12.526,6.054,SIMULATION ASSUMPTION - coordinate model only
+random_08,95,111,74.335,92.693,50.0,0.0,124.335,92.693,3.339,SIMULATION ASSUMPTION - coordinate model only
+random_09,238,258,186.228,215.449,50.0,0.0,236.228,215.449,9.738,SIMULATION ASSUMPTION - coordinate model only
+random_10,616,13,482.003,10.856,50.0,0.0,532.003,10.856,5.289,SIMULATION ASSUMPTION - coordinate model only
+random_11,574,101,449.139,84.342,50.0,0.0,499.139,84.342,7.36,SIMULATION ASSUMPTION - coordinate model only
+random_12,558,214,436.62,178.706,50.0,0.0,486.62,178.706,9.854,SIMULATION ASSUMPTION - coordinate model only
+random_13,225,229,176.056,191.232,50.0,0.0,226.056,191.232,6.713,SIMULATION ASSUMPTION - coordinate model only

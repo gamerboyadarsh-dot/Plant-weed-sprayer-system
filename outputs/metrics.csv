@@ -1,0 +1,2 @@
+total_images,fire_events,suppressed_events,no_candidate_events,total_burst_ms,targeted_volume_ml,blanket_volume_ml,volume_difference_ml,volume_reduction_percent,assumed_flow_rate_ml_s,virtual_time_per_image_s,note
+90,132,2,20,25475.37,50.9507,90.0,39.0493,43.39,2.0,0.5,SIMULATION-ONLY - not a physical measurement

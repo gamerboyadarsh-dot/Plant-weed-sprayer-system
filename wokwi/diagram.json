@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "author": "BACSE291 IDP — Project 202601383",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-arduino-uno",
+      "id": "uno",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -90,
+      "left": 150,
+      "attrs": { "color": "red", "label": "Virtual Actuator" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -35,
+      "left": 150,
+      "attrs": { "value": "220" }
+    }
+  ],
+  "connections": [
+    [ "uno:13",     "r1:1",    "green", [] ],
+    [ "r1:2",       "led1:A",  "green", [] ],
+    [ "led1:K",     "uno:GND", "black", [] ]
+  ],
+  "serialMonitor": { "display": "terminal" }
+}

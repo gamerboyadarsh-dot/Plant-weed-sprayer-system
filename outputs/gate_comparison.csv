@@ -1,0 +1,3 @@
+gate,TP,TN,FP,FN,Precision,Recall,FPR,F1,FireCount,note
+Colour-Only,35,20,35,0,0.5,1.0,0.6364,0.6667,70,SIMULATION-ONLY - synthetic dataset
+Dual-Cue,35,21,34,0,0.5072,1.0,0.6182,0.6731,69,SIMULATION-ONLY - synthetic dataset
