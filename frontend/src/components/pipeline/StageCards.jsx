@@ -214,18 +214,30 @@ export function StageCards({
                 justifyContent: 'center'
               }}
             >
-              <img
-                src={currentHero.src}
-                alt={currentHero.title}
-                style={{
-                  maxWidth: '100%',
-                  maxHeight: fullscreen ? '70vh' : '400px',
-                  objectFit: 'contain',
-                  borderRadius: 'var(--radius-sm)',
-                  opacity: loading ? 0.5 : 1,
-                  transition: 'opacity var(--transition-fast)'
-                }}
-              />
+              {currentHero.src ? (
+                <img
+                  src={currentHero.src}
+                  alt={currentHero.title}
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: fullscreen ? '70vh' : '400px',
+                    objectFit: 'contain',
+                    borderRadius: 'var(--radius-sm)',
+                    opacity: loading ? 0.6 : 1,
+                    transition: 'opacity var(--transition-fast)'
+                  }}
+                />
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '12px', padding: '60px 20px', color: 'var(--text-muted)' }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', border: '3px solid rgba(79, 157, 93, 0.2)', borderTopColor: 'var(--leaf-green)', animation: 'spin 1s linear infinite' }} />
+                  <div style={{ fontSize: 'var(--text-sm)', fontWeight: 500, color: 'var(--text-primary)' }}>
+                    Loading computer vision pipeline...
+                  </div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
+                    Generating ExG heatmap and decision overlays
+                  </div>
+                </div>
+              )}
 
               {/* Scanning-line sweep animation when loading */}
               {loading && (
@@ -271,12 +283,16 @@ export function StageCards({
                   transition: 'all var(--transition-fast)'
                 }}
               >
-                <div style={{ aspectRatio: '16/10', borderRadius: '4px', overflow: 'hidden', background: 'var(--bg-surface-2)' }}>
-                  <img
-                    src={st.src}
-                    alt={st.title}
-                    style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                  />
+                <div style={{ aspectRatio: '16/10', borderRadius: '4px', overflow: 'hidden', background: 'var(--bg-surface-2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {st.src ? (
+                    <img
+                      src={st.src}
+                      alt={st.title}
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
+                  ) : (
+                    <div style={{ width: '14px', height: '14px', borderRadius: '50%', border: '2px solid rgba(79, 157, 93, 0.2)', borderTopColor: 'var(--leaf-green)', animation: 'spin 1s linear infinite' }} />
+                  )}
                 </div>
                 <div style={{ fontSize: '11px', fontWeight: 600, color: isActive ? 'var(--leaf-green)' : 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   {st.title}

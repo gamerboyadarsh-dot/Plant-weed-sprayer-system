@@ -1,7 +1,8 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { DEFAULT_PARAMS } from '../utils/constants';
 import { fetchImages, processPipeline } from '../api/client';
 import { useDebounce } from '../hooks/useDebounce';
+import { useBackendStatus } from '../hooks/useBackendStatus';
 
 const PipelineContext = createContext(null);
 
@@ -16,11 +17,14 @@ export function PipelineProvider({ children }) {
   const [errorMsg, setErrorMsg] = useState(null);
   const [hoveredCandidateId, setHoveredCandidateId] = useState(null);
 
+  const { online } = useBackendStatus();
+  const retryTimeoutRef = useRef(null);
+
   // Debounced params for smooth slider adjustments
   const debouncedParams = useDebounce(params, 220);
 
-  // Load initial image catalog
-  useEffect(() => {
+  // Load image catalog with auto-retry
+  const loadImageCatalog = useCallback(() => {
     fetchImages()
       .then(data => {
         if (data && data.images) {
@@ -31,6 +35,17 @@ export function PipelineProvider({ children }) {
         console.error('Failed to load image catalog:', err);
       });
   }, []);
+
+  useEffect(() => {
+    loadImageCatalog();
+  }, [loadImageCatalog]);
+
+  // Re-fetch images if empty when backend comes online
+  useEffect(() => {
+    if (online && imagesList.length === 0) {
+      loadImageCatalog();
+    }
+  }, [online, imagesList.length, loadImageCatalog]);
 
   // Run pipeline when debounced parameters or selected image changes
   const executePipeline = useCallback(async () => {
@@ -46,16 +61,34 @@ export function PipelineProvider({ children }) {
     try {
       const data = await processPipeline(payload);
       setPipelineData(data);
+      setErrorMsg(null);
     } catch (err) {
+      console.warn('Pipeline processing request failed (may be waking up):', err);
       setErrorMsg(err.message || 'Pipeline processing failed');
+      
+      // Auto-retry once after 3 seconds if cold-starting
+      if (!pipelineData) {
+        clearTimeout(retryTimeoutRef.current);
+        retryTimeoutRef.current = setTimeout(() => {
+          executePipeline();
+        }, 3000);
+      }
     } finally {
       setLoading(false);
     }
-  }, [debouncedParams, selectedImage, uploadedBase64]);
+  }, [debouncedParams, selectedImage, uploadedBase64, pipelineData]);
 
   useEffect(() => {
     executePipeline();
+    return () => clearTimeout(retryTimeoutRef.current);
   }, [executePipeline]);
+
+  // Automatically execute pipeline as soon as backend comes online if data is still empty
+  useEffect(() => {
+    if (online && !pipelineData && !loading) {
+      executePipeline();
+    }
+  }, [online, pipelineData, loading, executePipeline]);
 
   const updateParam = (key, value) => {
     setParams(prev => ({ ...prev, [key]: parseFloat(value) }));

@@ -14,8 +14,17 @@ export function GalleryPage({ onSelectAndNavigate }) {
   ];
 
   const filteredImages = useMemo(() => {
-    if (activeCategory === 'all') return imagesList;
-    return imagesList.filter(img => img.class === activeCategory);
+    if (activeCategory !== 'all') {
+      return imagesList.filter(img => img.class === activeCategory);
+    }
+    // Sort Weed Targets first, then Crop Blades, then Bare Soil
+    const order = { weed: 0, crop: 1, background: 2 };
+    return [...imagesList].sort((a, b) => {
+      const oa = order[a.class] ?? 3;
+      const ob = order[b.class] ?? 3;
+      if (oa !== ob) return oa - ob;
+      return a.filename.localeCompare(b.filename);
+    });
   }, [imagesList, activeCategory]);
 
   const handleCardClick = (filename) => {
